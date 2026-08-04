@@ -147,7 +147,7 @@ jobs:
                   ZSYNC_NAME: ${{ steps.artifacts.outputs.zsync }}
               run: |
                   LDAI_OUTPUT="${APPIMAGE_NAME}" \
-                  LDAI_UPDATE_INFORMATION="gh-releases-zsync|${{ github.repository_owner }}|LibreSplit|${UPDATE_CHANNEL}|LibreSplit-*x86_64.AppImage.zsync" \
+                  LDAI_UPDATE_INFORMATION="gh-releases-zsync|${{ github.repository_owner }}|LibreSplit-test|${UPDATE_CHANNEL}|LibreSplit-*x86_64.AppImage.zsync" \
                   ./linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file AppDir/libresplit.desktop --icon-file AppDir/libresplit.png --output appimage
                   if [[ "${APPIMAGE_NAME}.zsync" != "${ZSYNC_NAME}" ]]; then
                     mv "${APPIMAGE_NAME}.zsync" "${ZSYNC_NAME}"
@@ -209,7 +209,7 @@ jobs:
                   path: packaging-policy
                   persist-credentials: false
                   ref: ${{ inputs.packaging_sha }}
-                  repository: LibreSplit/rpm.libresplit.org
+                  repository: StarlitLuna/rpm.libresplit.org-test
 
             - name: Prepare RPM sources
               run: |
@@ -282,8 +282,8 @@ jobs:
         if: |
             github.event_name == 'push' &&
             inputs.version == '' &&
-            github.ref == 'refs/heads/main' &&
-            github.repository == 'LibreSplit/LibreSplit'
+            github.ref == 'refs/heads/master' &&
+            github.repository == 'StarlitLuna/LibreSplit-test'
         steps:
             - uses: actions/checkout@v6
               with:
@@ -335,7 +335,7 @@ jobs:
 
             - name: Upload to master repository
               run: |
-                  ghr_v0.17.0_linux_amd64/ghr -u ${{ github.repository_owner }} -r LibreSplit -recreate -prerelease \
+                  ghr_v0.17.0_linux_amd64/ghr -u ${{ github.repository_owner }} -r LibreSplit-test -recreate -prerelease \
                     -n 'Automatic CI builds' \
                     -b "$(printf "Corresponding commit: ${{ github.sha }}\nLibreSplit Build: ${{ env.BUILD_VARIABLE }}")" \
                     nightly artifacts-master/
