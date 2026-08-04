@@ -163,8 +163,8 @@ jobs:
               with:
                   client-id: ${{ secrets.RELEASE_APP_CLIENT_ID }}
                   private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-                  owner: LibreSplit
-                  repositories: LibreSplit
+                  owner: StarlitLuna
+                  repositories: LibreSplit-test
                   permission-contents: write
                   permission-workflows: write
 
